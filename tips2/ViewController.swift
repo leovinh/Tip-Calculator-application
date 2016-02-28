@@ -10,7 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var thamSoTruyen:NSUserDefaults!
   
+    @IBOutlet weak var lblName: UILabel!
     
     @IBOutlet weak var billField: UITextField!
     
@@ -27,6 +29,7 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
         
+        thamSoTruyen = NSUserDefaults()
         
     }
 
@@ -57,6 +60,13 @@ class ViewController: UIViewController {
     
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
+        
     }
+    
+    @IBAction func clickShow(sender: AnyObject) {
+        
+        lblName.text = thamSoTruyen.objectForKey("bien") as? String
+    }
+    
 }
 

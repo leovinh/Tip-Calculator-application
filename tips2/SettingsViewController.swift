@@ -11,16 +11,18 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     
-    
+    var thamSoTruyen:NSUserDefaults!
    
-    
     @IBOutlet weak var txtName: UITextField!
     
-    @IBOutlet weak var txtEmail: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        thamSoTruyen = NSUserDefaults()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,5 +31,8 @@ class SettingsViewController: UIViewController {
     }
     
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        thamSoTruyen.setObject(txtName.text, forKey: "bien")
+    }
     
 }
