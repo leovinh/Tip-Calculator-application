@@ -10,9 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var thamSoTruyen:NSUserDefaults!
-  
-    @IBOutlet weak var lblName: UILabel!
+    
+    let userDefaults  = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var billField: UITextField!
     
@@ -29,7 +28,8 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
         
-        thamSoTruyen = NSUserDefaults()
+        // Show the keyboard when app starts
+        billField.becomeFirstResponder()
         
     }
 
@@ -63,10 +63,50 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func clickShow(sender: AnyObject) {
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print("view will appear")
         
-        lblName.text = thamSoTruyen.objectForKey("bien") as? String
+        let tipPercentage = userDefaults.doubleForKey("tip")
+        let tipIndex = userDefaults.integerForKey("ind")
+        
+        let billAmount = Double((billField.text! as NSString).doubleValue)
+        
+        tipControl.selectedSegmentIndex = tipIndex
+        
+        let tip = billAmount * tipPercentage
+        
+        let total = billAmount + tip
+        
+        tipLabel.text = String(format:"$%.2f", tip)
+        
+        totalLabel.text = String(format:"$%.2f", total)
+        
+        
+        
     }
+    
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will disappear")
+        let billAmount = Double((billField.text! as NSString).doubleValue)
+        let tipPercentages = [0.18, 0.2, 0.22]
+        
+        let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
+        let index = tipControl.selectedSegmentIndex
+    
+        userDefaults.setObject(billAmount, forKey: "bill")
+        userDefaults.setObject(tipPercentage, forKey: "tip")
+        userDefaults.setInteger(index, forKey: "ind")
+        userDefaults.synchronize()
+    }
+    
+    
+    
     
 }
 

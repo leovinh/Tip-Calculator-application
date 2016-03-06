@@ -11,10 +11,9 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     
-    var thamSoTruyen:NSUserDefaults!
-   
-    @IBOutlet weak var txtName: UITextField!
+    @IBOutlet weak var tipControl: UISegmentedControl!
     
+    let userDefaults  = NSUserDefaults.standardUserDefaults()
     
     
     override func viewDidLoad() {
@@ -22,7 +21,12 @@ class SettingsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        thamSoTruyen = NSUserDefaults()
+        // Do any additional setup after loading the view.
+        let tipIndex = (userDefaults.integerForKey("ind"))
+        tipControl.selectedSegmentIndex = tipIndex
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,8 +35,17 @@ class SettingsViewController: UIViewController {
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        thamSoTruyen.setObject(txtName.text, forKey: "bien")
+    @IBAction func actPercentage(sender: AnyObject) {
+        let tipPercentages = [0.18, 0.2, 0.22]
+        
+        let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
+        let index = tipControl.selectedSegmentIndex
+        
+        
+        userDefaults.setObject(tipPercentage, forKey: "tip")
+        userDefaults.setInteger(index, forKey: "ind")
     }
+    
+    
     
 }
