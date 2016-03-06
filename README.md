@@ -13,7 +13,7 @@ Completed:
 * [x] Optional: Show the keyboard immediately when app starts by using.
 
 
-![Video Walkthrough](coderschool-submit.gif)
+![Video Walkthrough](coderschool-submit-update.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
